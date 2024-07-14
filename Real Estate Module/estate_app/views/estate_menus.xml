@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="estate_app_dashboard" name="Estate App" web_icon="estate_app,static/description/icon.png">
+        <menuitem id='estate_app_menu' name='Properties'>
+            <menuitem id='estate_app_property' action='estate_property_action' />
+        </menuitem>
+        <menuitem id='estate_property_settings' name='Settings' groups="estate_group_manager">
+            <menuitem id='estate_property_type_views' action='estate_property_type_action' />
+            <menuitem id='estate_property_tag_views' action='estate_property_tag_action' />
+        </menuitem>
+    </menuitem>
+</odoo>

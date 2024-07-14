@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
+        <field name="name">Batch Transfers</field>
+        <field name="res_model">stock.picking.batch</field>
+        <field name="view_mode">tree,kanban,graph,gantt,form</field>
+    </record>
+
+    <record id="stock_picking_batch_form_view" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form.view</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="dock_id" />
+                <field name="vehicle_id" />
+                <field name="vehicle_category_id" />
+                <div invisible="not vehicle_category_id">
+                    <div class="d-flex" style="width:12rem">
+                        <span style="margin-right: 10rem">
+                            <strong>Weight:</strong>
+                        </span>
+                        <div class="d-flex">
+                            <field name="weight" invisible="not vehicle_category_id" class="me-2"/>
+                            <span class="me-4">Kg</span>
+                            <field name="weight_progress" invisible="not vehicle_category_id" string="" widget="progressbar"/>
+                        </div>
+                    </div>
+                    <div class="d-flex" style="width:12rem">
+                        <span style="margin-right: 10rem">
+                            <strong>Volume:</strong>
+                        </span>
+                        <div class="d-flex">
+                            <field name="volume" invisible="not vehicle_category_id" class="me-2"/>
+                            <span class="me-4">m³</span>
+                            <field name="volume_progress" invisible="not vehicle_category_id" string="" widget="progressbar"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="stock_picking_volume_view" model="ir.ui.view">
+        <field name="name">stock.picking.volume.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="volume" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_picking_batch_graph" model="ir.ui.view">
+        <field name="name">stock.picking.batch.graph</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <graph string="Stock Picking Batch Analysis" type="bar">
+                <field name="scheduled_date" type="bar" string="Scheduled Date"/>
+                <field name="vehicle_category_id" type="bar" string="Vehicle Category"/>
+                <field name="weight" type="measure"/>
+                <field name="volume" type="measure"/>
+                <field name="transfer_count" type="measure"/>
+                <field name="lines_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_stock_picking_batch_gantt" model="ir.ui.view">
+        <field name="name">stock.picking.batch.gantt</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <gantt date_start="create_date" date_stop="scheduled_date" default_group_by="dock_id,vehicle_id" color="vehicle_id" string="Schedule" thumbnails="{'vehicle_id': 'image_128'}" decoration-info="state == 'draft'" default_scale="week">
+                <field name="state" />
+                <field name="driver_name" />
+                <templates>
+                    <div t-name="gantt-popover">
+                        <div t-if="vehicle_id">
+                            <strong>Driver — </strong>
+                            <span t-esc="driver_name ? driver_name : 'N/A'"/>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+</odoo>

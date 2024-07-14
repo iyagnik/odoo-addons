@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+    <t t-name="awesome_owl.todo_item">
+        <div class="list-group-item d-flex justify-content-between align-items-center border-0 bg-transparent">
+
+            <input class="form-check-input mt-0 me-3" type="checkbox" t-att-id="props.todo.id" t-att-checked="props.todo.isDone" t-on-change="onChange" />
+
+            <label t-att-for="props.todo.id" t-att-class="props.todo.isDone ? 'ms-2 fw-light text-decoration-       line-through text-muted' : 'ms-2' ">
+                <t t-esc="props.todo.id"/>. 
+                <strong>
+                    <t t-esc="props.todo.description"/>
+                </strong>
+            </label>
+
+            <div class="spinner-border spinner-border-sm text-primary me-2" role="status" t-att-class="props.todo.isDone ? 'visually-hidden' : '' " t-att-style="props.todo.isDone ? 'display: none' : '' ">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <i class="bi bi-check-circle-fill text-success me-2" t-att-class="props.todo.isDone ? 'visible' : 'd-none' "></i>
+            <span role="button" class="fa fa-remove ms-3 text-danger" t-on-click="onRemove"/>
+        </div>
+    </t>
+</templates>

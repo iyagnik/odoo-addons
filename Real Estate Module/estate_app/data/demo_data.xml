@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Define the estate property types -->
+    <record id="property_type1" model="estate.property.type">
+        <field name="type">Apartment</field>
+    </record>
+    <record id="property_type2" model="estate.property.type">
+        <field name="type">Villa</field>
+    </record>
+
+    <!-- Define some tags -->
+    <record id="tag1" model="estate.property.tag">
+        <field name="tag">Spacious</field>
+    </record>
+    <record id="tag2" model="estate.property.tag">
+        <field name="tag">Modern</field>
+    </record>
+    <record id="tag3" model="estate.property.tag">
+        <field name="tag">Luxury</field>
+    </record>
+
+    <!-- Create some demo properties -->
+    <record id="property1" model="estate.property">
+        <field name="name">Luxury Apartment</field>
+        <field name="image_property" type="base64" file="estate_app/static/description/property1.jpg"></field>
+        <field name="description">A beautiful apartment with a view</field>
+        <field name="pincode">12345</field>
+        <field name="date_availability">2024-03-01</field>
+        <field name="expected_price">500000.00</field>
+        <field name="bedrooms">3</field>
+        <field name="living_area">120</field>
+        <field name="facades">2</field>
+        <field name="garage">True</field>
+        <field name="garden">False</field>
+        <field name="garden_area">0</field>
+        <field name="garden_orientation" eval="None"/>
+        <field name="active">True</field>
+        <field name="state">new</field>
+        <field name="salesperson_id" ref="base.partner_demo" />
+        <field name="property_type_id" ref="property_type1"/>
+        <field name="tag_ids" eval="[(6, 0, [ref('tag1'), ref('tag2')])]"/>
+    </record>
+    <record id="property2" model="estate.property">
+        <field name="name">Modern Villa</field>
+        <field name="image_property" type="base64" file="estate_app/static/description/property2.jpg"></field>
+        <field name="description">A stunning villa with a garden</field>
+        <field name="pincode">67890</field>
+        <field name="date_availability">2024-04-01</field>
+        <field name="expected_price">800000.00</field>
+        <field name="bedrooms">4</field>
+        <field name="living_area">200</field>
+        <field name="facades">4</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">50</field>
+        <field name="garden_orientation">south</field>
+        <field name="active">True</field>
+        <field name="state">new</field>
+        <field name="salesperson_id" ref="base.partner_demo" />
+        <field name="property_type_id" ref="property_type2"/>
+        <field name="tag_ids" eval="[(6, 0, [ref('tag2')])]"/>
+    </record>
+    <record id="property3" model="estate.property">
+        <field name="name">Cozy Apartment</field>
+        <field name="image_property" type="base64" file="estate_app/static/description/property3.jpg"></field>
+        <field name="description">Perfect for a small family</field>
+        <field name="pincode">54321</field>
+        <field name="date_availability">2024-05-01</field>
+        <field name="expected_price">300000.00</field>
+        <field name="bedrooms">1</field>
+        <field name="living_area">80</field>
+        <field name="facades">1</field>
+        <field name="garage">False</field>
+        <field name="garden">False</field>
+        <field name="garden_area">0</field>
+        <field name="garden_orientation" eval="None"/>
+        <field name="active">True</field>
+        <field name="state">new</field>
+        <field name="salesperson_id" ref="base.partner_demo" />
+        <field name="property_type_id" ref="property_type1"/>
+        <field name="tag_ids" eval="[(6, 0, [ref('tag1')])]"/>
+    </record>
+    <record id="property4" model="estate.property">
+        <field name="name">Spacious Villa</field>
+        <field name="image_property" type="base64" file="estate_app/static/description/property4.jpg"></field>
+        <field name="description">Large villa with beautiful surroundings</field>
+        <field name="pincode">98765</field>
+        <field name="date_availability">2024-06-01</field>
+        <field name="expected_price">100000.00</field>
+        <field name="bedrooms">5</field>
+        <field name="living_area">300</field>
+        <field name="facades">3</field>
+        <field name="garage">True</field>
+        <field name="garden">True</field>
+        <field name="garden_area">100</field>
+        <field name="garden_orientation">west</field>
+        <field name="active">True</field>
+        <field name="state">new</field>
+        <field name="salesperson_id" ref="base.partner_demo" />
+        <field name="property_type_id" ref="property_type2"/>
+        <field name="tag_ids" eval="[(6, 0, [ref('tag2'), ref('tag3')])]"/>
+    </record>
+
+    <!-- Demo Offers -->
+    <record id="offer1" model="estate.property.offer">
+        <field name="price">10000</field>
+        <field name="partner_id" ref="base.res_partner_12" />
+        <field name="property_id" ref="property4"/>
+        <field name="validity">14</field>
+    </record>
+    <record id="offer2" model="estate.property.offer">
+        <field name="price">1500000</field>
+        <field name="partner_id" ref="base.res_partner_12" />
+        <field name="property_id" ref="property4"/>
+        <field name="validity">14</field>
+    </record>
+    <record id="offer3" model="estate.property.offer">
+        <field name="price">1500001</field>
+        <field name="partner_id" ref="base.res_partner_2" />
+        <field name="property_id" ref="property4"/>
+        <field name="validity">14</field>
+    </record>
+
+    <record id="offer4" model="estate.property.offer">
+        <field name="price">500000</field>
+        <field name="partner_id" ref="base.res_partner_12" />
+        <field name="property_id" ref="property1"/>
+        <field name="validity">13</field>
+    </record>
+    <record id="offer5" model="estate.property.offer">
+        <field name="price">500001</field>
+        <field name="partner_id" ref="base.res_partner_2" />
+        <field name="property_id" ref="property1"/>
+        <field name="validity">17</field>
+    </record>
+</odoo>

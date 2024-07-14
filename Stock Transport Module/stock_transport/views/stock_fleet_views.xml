@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_fleet_tree_view" model="ir.ui.view">
+        <field name="name">stock.fleet.tree.view</field>
+        <field name="model">fleet.vehicle.model.category</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_model_category_view_tree"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="max_weight" />
+                <field name="max_volume" />
+            </tree>
+        </field>
+    </record>
+    <record id="stock_fleet_form_view" model="ir.ui.view">
+        <field name="name">stock.fleet.view.form</field>
+        <field name="model">fleet.vehicle.model.category</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_model_category_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="max_weight"/>
+                <field name="max_volume"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

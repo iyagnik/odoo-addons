@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- All Properties -->
+    <record id="estate_property_action" model="ir.actions.act_window">
+        <field name="name">All Properties</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No properties found!
+            </p>
+            <p>Create a new property using the "New" button.</p>
+        </field>
+        <field name="context">{'search_default_available': True}</field>
+    </record>
+    <!-- Properties Types -->
+    <record id="estate_property_type_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No properties types found!
+            </p>
+            <p> Create a new property type using the "New" button.</p>
+        </field>
+    </record>
+    <!-- Properties Tags -->
+    <record id="estate_property_tag_action" model="ir.actions.act_window">
+        <field name="name">Property Tags</field>
+        <field name="res_model">estate.property.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No properties tags found!
+            </p>
+            <p>Create a new property tag using the "New" button.</p>
+        </field>
+    </record>
+</odoo>

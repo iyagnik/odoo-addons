@@ -1,0 +1,183 @@
+<odoo>
+    <record id="menu_property_webview" model="website.menu">
+        <field name="name">Estate Properties</field>
+        <field name="url">/estate/properties</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <template id="properties">
+        <t t-call="website.layout">
+            <html>
+                <head>
+                    <title>Estate Properties</title>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+                </head>
+                <body>
+                    <form method="GET" action="/estate/properties" class="mb-4">
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" name="search" placeholder="Search Property" class="form-control" t-att-value="request.params.get('search')"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="date" name="available_from" class="form-control" id="available_from" placeholder="Available From" />
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="container mt-5">
+                        <h1 class="text-center">Properties</h1>
+                        <div class="row justify-content-center mt-3">
+                            <t t-foreach="properties" t-as="property">
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <img t-att-src="'/web/image/estate.property/' + str(property.id) + '/image_property'" alt="Property Image" class="card-img-top" style="height: 17rem; "/>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <t t-esc="property.name" />
+                                            </h5>
+                                            <a t-attf-href="/estate/properties/#{property.id}" class="btn btn-primary">View Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="text-center mt-5">
+                            <t t-call="website.pager" />
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </t>
+    </template>
+
+    <template id="object">
+        <t t-call="website.layout">
+            <title>
+                <t t-out="property.name" />
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+            </title>
+
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card d-flex align-items-center justify-content-center">
+                            <img t-att-src="'/web/image/estate.property/' + str(property.id) + '/image_property'" alt="Property Image" class="card-img-top img-fluid" style="width: 46rem; object-fit: contain;"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title m-2">
+                                    <t t-out="property.name" />
+                                </h2>
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Salesperson:</th>
+                                            <td>
+                                                <t t-out="property.salesperson_id.name" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Status:</th>
+                                            <td>
+                                                <t t-out="property.state" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Bedrooms:</th>
+                                            <td>
+                                                <t t-out="property.bedrooms"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Living Area:</th>
+                                            <td>
+                                                <t t-out="property.living_area"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Expected Price:</th>
+                                            <td>
+                                                <t t-out="property.expected_price"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Best Offer:</th>
+                                            <td>
+                                                <t t-out="property.best_price"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Post Code:</th>
+                                            <td>
+                                                <t t-out="property.pincode"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Garden:</th>
+                                            <td>
+                                                <t t-if="property.garden">Yes</t>
+                                                <t t-else="">No</t>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <strong>Description:</strong>
+                        </h5>
+                        <p class="card-text">
+                            <t t-out="property.description"/>
+                        </p>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">More Details:</h5>
+                        <p class="card-text">
+                            Available From: <t t-out="property.date_availability"/>
+                        </p>
+                        <p class="card-text">
+                            Garden Area(sqm): <t t-out="property.garden_area"/>
+                        </p>
+                        <p class="card-text">
+                            Garden Orientation: <t t-if="property.garden_orientation">
+                            <t t-out="property.garden_orientation"/>
+                        </t>
+                        <t t-else="">None</t>
+                    </p>
+                    <p class="card-text">
+                            Total Area: <t t-out="property.total_area"/>
+                    </p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Property Offers:</h5>
+                    <hr/>
+                    <t t-if="property.offer_ids">
+                        <p>
+                            <strong>Offers Available Contact Salesperson for more information!!</strong>
+                        </p>
+                    </t>
+                    <t t-else="">
+                        <p>
+                            <strong>No offers has been made yet );</strong>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- For Property Offer -->
+    <!-- Offer Tree View-->
+    <record id="property_offer_tree_view" model="ir.ui.view">
+        <field name="name">estate.property.offer.tree</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Offer Tree" decoration-success="status == 'accepted'" decoration-danger="status == 'refused'">
+                <field name="price" />
+                <field name="partner_id"/>
+                <field name="validity" string="Validity(days)" />
+                <field name="date_deadline" />
+                <button class="oe_highlight" type="object" name="status_accept" icon="fa-check" title="Accept Offer" invisible="status" />
+                <button class="oe_highlight" type="object" name="status_refused" icon="fa-times" title="Refuse Offer" invisible="status" />
+                <field name="status" />
+                <!-- <field name="property_type_id"></field> -->
+            </tree>
+        </field>
+    </record>
+    <!-- Offer Form View -->
+    <record id="property_offer_form_view" model="ir.ui.view">
+        <field name="name">estate.property.offer.form</field>
+        <field name="model">estate.property.offer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="price" />
+                        <field name="partner_id"/>
+                        <field name="validity" />
+                        <field name="date_deadline" />
+                        <field name="property_id" />
+                        <field name="status" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Properties Offers Action for Stat Button-->
+    <record id="estate_property_offer_action" model="ir.actions.act_window">
+        <field name="name">Property Offer</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No offers available!
+            </p>
+        </field>
+    </record>
+</odoo>
